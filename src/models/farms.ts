@@ -9,9 +9,11 @@ export interface FarmSchema extends mongoose.Document {
   unitPrice: number;
   produceRate: number;
   unitsAvailable: number;
+  duration: string;
+  isVerified: Boolean;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date;
+  deletedAt: Date | null;
 }
 
 const farmSchema = new mongoose.Schema(
@@ -37,7 +39,6 @@ const farmSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
       index: true,
-      unique: true,
       required: true,
     },
     farmLocation: {
@@ -58,6 +59,13 @@ const farmSchema = new mongoose.Schema(
     unitsAvailable: {
       type: Number,
       required: true,
+    },
+    duration: {
+      type: String,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
     },
     deletedAt: {
       type: Date,
