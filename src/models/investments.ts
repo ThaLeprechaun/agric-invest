@@ -6,7 +6,6 @@ export interface InvestmentSchema extends mongoose.Document {
   units: number;
   amount: number;
   returns: number;
-  duration: string;
   investmentDate: Date;
 }
 
@@ -29,9 +28,6 @@ const investmentSchema = new mongoose.Schema({
   },
   returns: {
     type: Number,
-  },
-  duration: {
-    type: String,
   },
   investmentDate: {
     type: mongoose.Schema.Types.Date,
