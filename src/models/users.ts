@@ -10,7 +10,7 @@ export interface UserSchema extends mongoose.Document {
   isAdmin: boolean;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date;
+  deletedAt: Date | null;
 }
 
 const userSchema = new mongoose.Schema(
