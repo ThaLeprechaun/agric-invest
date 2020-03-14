@@ -17,8 +17,9 @@ process.env = JSON.parse(JSON.stringify(process.env));
  */
 
 const app = require('../dist/app').default;
-const debug = require('debug')('nert:server');
+const debug = require('debug')('agric-invest:server');
 const http = require('http');
+const mongoose = require('mongoose');
 
 /**
  * Get port from environment and store in Express.
@@ -26,6 +27,18 @@ const http = require('http');
 
 const port = normalizePort(process.env.PORT || '3005');
 app.set('port', port);
+
+/**Connect to MongoDB */
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
+
+mongoose.connection.on('connected', mongoConnected);
+mongoose.connection.on('disconnected', mongoDisconnected);
+mongoose.connection.on('error', mongoError);
 
 /**
  * Create HTTP server.
@@ -95,4 +108,16 @@ function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
+}
+
+function mongoConnected() {
+  debug('MongoDB connected successfully');
+}
+
+function mongoDisconnected(reason) {
+  debug('MongoDB disconnected - %o', reason);
+}
+
+function mongoError(err) {
+  console.error('Mongo Error', err);
 }
