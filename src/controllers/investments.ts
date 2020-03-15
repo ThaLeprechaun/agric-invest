@@ -85,7 +85,6 @@ export async function getAnInvestment(investId: string) {
 
     return investment;
   } catch (error) {
-    console.error('unable to get investment');
     throw Error(error.message);
   }
 }
@@ -100,7 +99,23 @@ export async function getInvestmentsByUser(userId: string) {
 
     return userInvestments;
   } catch (error) {
-    console.error('unable to get investment');
+    throw Error(error.message);
+  }
+}
+
+export async function deleteAnInvestment(investId: string) {
+  try {
+    const investment = await Investments.findOneAndUpdate(
+      { _id: investId },
+      { deletedAt: new Date() },
+      { new: true },
+    );
+
+    if (!investment) {
+      throw Error('Sorry, Investment does not exist');
+    }
+    return investment;
+  } catch (error) {
     throw Error(error.message);
   }
 }
