@@ -72,8 +72,7 @@ export function updateUserValidate(data: UserDetails) {
       .pattern(/^(\+234[789][01]\d{8})$|^(0[789][01]\d{8})$/)
       .min(11)
       .max(14)
-      .trim()
-      .lowercase(),
+      .trim(),
     email: joi
       .string()
       .email()
