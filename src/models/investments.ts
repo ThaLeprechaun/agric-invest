@@ -7,33 +7,43 @@ export interface InvestmentSchema extends mongoose.Document {
   amount: number;
   returns: number;
   investmentDate: Date;
+  deletedAt: Date | null;
 }
 
-const investmentSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'users',
+const investmentSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users',
+    },
+    farm: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'farms',
+    },
+    units: {
+      type: Number,
+      required: true,
+    },
+    amount: {
+      type: Number,
+      required: true,
+    },
+    returns: {
+      type: Number,
+    },
+    investmentDate: {
+      type: Date,
+      default: Date.now,
+    },
+    deletedAt: {
+      type: Date,
+      default: null,
+    },
   },
-  farm: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'farms',
+  {
+    timestamps: true,
   },
-  units: {
-    type: Number,
-    required: true,
-  },
-  amount: {
-    type: Number,
-    required: true,
-  },
-  returns: {
-    type: Number,
-  },
-  investmentDate: {
-    type: mongoose.Schema.Types.Date,
-    default: Date.now,
-  },
-});
+);
 
 export default mongoose.model<InvestmentSchema>(
   'investments',
