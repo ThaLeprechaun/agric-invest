@@ -1,7 +1,5 @@
-// import { FarmDetails } from './../controllers/farms';
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 
 import {
   registerValidate,
@@ -46,37 +44,12 @@ router.post('/', async function(req, res) {
     const salt = await bcrypt.genSalt(10);
     value.password = await bcrypt.hash(value.password, salt);
     const user = await createAUser(value);
-    const userId = user.id;
-    const isAdmin = user.isAdmin;
-
     const { firstName, lastName, phone, email, userCategory } = user;
     const newUser = { firstName, lastName, phone, email, userCategory };
 
-    // Email user upon successful registration
-
-    const payload = { id: userId, isAdmin };
-    const secret = process.env.JWT_SECRET;
-
-    if (!secret) {
-      res.status(500).json({ err: 'Secret not available' });
-      return;
-    }
-
-    jwt.sign(
-      payload,
-      secret,
-      {
-        expiresIn: '1h',
-      },
-      (err, token) => {
-        if (err) {
-          throw err;
-        }
-        res
-          .status(201)
-          .json({ message: 'User created successfully', token, user: newUser });
-      },
-    );
+    res
+      .status(201)
+      .json({ message: 'User created successfully', user: newUser });
     return;
   } catch (error) {
     res.status(400).json({ message: error.message });
