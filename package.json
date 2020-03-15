@@ -63,7 +63,16 @@
 		"hooks": {
 			"pre-commit": "pretty-quick --staged"
 		}
-	},
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "diagnostics": {
+          "pathRegex": "\\.(spec|test)\\.ts$"
+        }
+      }
+    }
+  },
 	"resolutions": {
 		"@types/node": "10.14.13",
 		"lodash": ">=4.17.13"
