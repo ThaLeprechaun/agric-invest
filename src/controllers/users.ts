@@ -11,10 +11,16 @@ export interface UserDetails {
 
 export async function createAUser(userObj: UserDetails) {
   try {
-    const existingUser = await Users.findOne({ email: userObj.email });
+    const existingUserEmail = await Users.findOne({ email: userObj.email });
+    const existingPhoneNumber = await Users.findOne({ phone: userObj.phone });
+    // const [ existingUserEmail, existingPhoneNumber ] = await Promise.all([ Users.findOne({ email: userObj.email }, { phone: userObj.phone })]);
 
-    if (existingUser) {
-      throw Error('User already exists');
+    if (existingUserEmail) {
+      throw Error('Email already exists');
+    }
+
+    if (existingPhoneNumber) {
+      throw Error('Phone number already exists or Invalid phone number');
     }
 
     const newUser = new Users(userObj);
