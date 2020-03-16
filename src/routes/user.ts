@@ -47,12 +47,10 @@ router.post('/', async function(req, res) {
     const { firstName, lastName, phone, email, userCategory } = user;
     const newUser = { firstName, lastName, phone, email, userCategory };
 
-    res
-      .status(201)
-      .json({ message: 'User created successfully', user: newUser });
+    res.status(201).json({ msg: 'User created successfully', user: newUser });
     return;
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ error: error.message });
     return;
   }
 });
