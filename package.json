@@ -7,7 +7,6 @@
 	"private": true,
 	"scripts": {
 		"postinstall": "tsc",
-		"build": "scripts/build.sh",
     "start": "node bin/www",
     "server": "nodemon bin/www",
     "dev": "concurrently  -k \"yarn tsc -w\" \"yarn run server\"",
