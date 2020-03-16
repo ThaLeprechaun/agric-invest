@@ -13,7 +13,7 @@ export async function createAUser(userObj: UserDetails) {
   try {
     const existingUserEmail = await Users.findOne({ email: userObj.email });
     const existingPhoneNumber = await Users.findOne({ phone: userObj.phone });
-    // const [ existingUserEmail, existingPhoneNumber ] = await Promise.all([ Users.findOne({ email: userObj.email }, { phone: userObj.phone })]);
+    // const [ existingUserEmail, existingPhoneNumber ] = await Promise.all([ Users.findOne({ email: userObj.email }, Users.findOne({ phone: userObj.phone }))]);
 
     if (existingUserEmail) {
       throw Error('Email already exists');
