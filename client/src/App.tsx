@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy, useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import SuspenseBoundary from './common/Boundary/SuspenseBoundary';
+import { useDispatch } from 'react-redux';
+import { loadUser } from './redux/actions/authUserAction';
+// import RegisterCard from './pages/Register/RegisterCard';
+
+// import getStore from './store';
+// import { PersistGate } from 'redux-persist/integration/react';
+
+// export const { store, persistor } = getStore();
+const RegisterCard = lazy(() => import('./pages/Register/RegisterCard'));
+const LoginCard = lazy(() => import('./pages/Login/LoginCard'));
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <SuspenseBoundary>
+        <Switch>
+          {/* <Route exact path="/" component={Home} /> */}
+          <Route path="/register" component={RegisterCard} />
+          <Route path="/login" component={LoginCard} />
+        </Switch>
+      </SuspenseBoundary>
+    </Router>
   );
 }
 
