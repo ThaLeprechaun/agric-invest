@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(cors());
 
 //Route middlewares
-app.use('/api', indexRouter);
+app.use('/', indexRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/farms', farmRouter);
