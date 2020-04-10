@@ -1,0 +1,28 @@
+.welcome__container {
+  /* background-color: red; */
+  /* display: flex;
+  justify-content: flex-start;
+  align-items: center; */
+  margin-top: 1rem;
+}
+.welcome__container--item {
+  /* background-color: yellow; */
+  text-transform: capitalize;
+  font-size: 1.4rem;
+  font-weight: normal;
+}
+.welcome__container--header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.newButton {
+  width: 12rem;
+  background-color: #116e01;
+  color: #fff;
+  padding: 10px 25px;
+  border: 2px solid #116e01;
+  border-radius: 25px;
+  margin-right: 6rem;
+  outline: none;
+}
