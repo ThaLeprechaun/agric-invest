@@ -1,0 +1,17 @@
+.heroImg__container {
+  width: 100%;
+  height: 45vh;
+  overflow: hidden;
+  background-image: url('./farms.jpg');
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.heroImg__holder {
+  color: #fff;
+  text-align: center;
+  margin-top: 100px;
+}
+.heroImg__holder--headText {
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}

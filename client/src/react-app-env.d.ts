@@ -27,6 +27,25 @@ export interface ActionType extends Action {
   payload?: {
     token?: string | any;
     user?: object;
+    farm?: object;
+    userCategory?: string[];
     error: string;
   };
+}
+
+export interface FarmType extends Action {
+  payload?: {
+    farm?: object;
+  };
+}
+
+export interface NewFarmType {
+  farmName: string;
+  farmCategory: string;
+  farmProduce: string;
+  farmLocation: string;
+  unitPrice: number | any;
+  produceRate: number | any;
+  unitsAvailable: number | any;
+  duration: string;
 }

@@ -1,0 +1,9 @@
+.investmentContainer {
+  /* background-color: red; */
+  margin-top: 1rem;
+}
+.card-investment {
+  width: 98%;
+  padding: 24px 3px;
+  border-radius: 0;
+}

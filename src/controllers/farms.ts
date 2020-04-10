@@ -6,9 +6,10 @@ export interface FarmDetails {
   farmCategory: string;
   farmProduce: string;
   farmLocation: string;
-  unitPrice: number;
-  produceRate: number;
-  unitsAvailable: number;
+  unitPrice: number | any;
+  produceRate: number | any;
+  unitsAvailable: number | any;
+  duration: string;
 }
 
 export async function createFarm(userId: string, farmObj: FarmDetails) {

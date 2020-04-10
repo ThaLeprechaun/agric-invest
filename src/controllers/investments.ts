@@ -103,6 +103,25 @@ export async function getInvestmentsByUser(userId: string) {
   }
 }
 
+export async function getFarmsInvestmentedByUser(userId: string) {
+  try {
+    const userInvestments = await Investments.find({ user: userId });
+    // const investorDetails = userInvestments.find((item: any)=>{
+    //   return item.user;
+    // });
+    // const investorId = investorDetails!.user;
+    // const investorFarm = await getAllFarmsByAUser(investorId);
+    // console.log(investorFarm);
+    if (!userInvestments) {
+      throw Error('Sorry, you do not have any investment');
+    }
+
+    return userInvestments;
+  } catch (error) {
+    throw Error(error.message);
+  }
+}
+
 export async function deleteAnInvestment(investId: string) {
   try {
     const investment = await Investments.findOneAndUpdate(

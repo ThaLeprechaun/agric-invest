@@ -62,6 +62,7 @@ const farmSchema = new mongoose.Schema(
     },
     duration: {
       type: String,
+      required: true,
     },
     isVerified: {
       type: Boolean,

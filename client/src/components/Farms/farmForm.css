@@ -1,0 +1,35 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  border: 1px solid #116e01;
+  border-radius: 3px;
+  padding-left: 0.5rem;
+  min-width: 25rem;
+  height: 2rem;
+  margin: 1rem;
+}
+.farm__form-button {
+  margin: 1rem;
+  background-color: #116e01;
+  border-radius: 3px;
+  width: 25rem;
+  padding: 10px 25px;
+  font-size: medium;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid #116e01;
+  position: relative;
+  z-index: 99;
+  text-transform: capitalize;
+  overflow: hidden;
+  cursor: pointer;
+}
+.form__card--heading {
+  margin: 1px;
+  text-align: center;
+}

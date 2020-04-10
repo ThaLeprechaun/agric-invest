@@ -57,11 +57,11 @@ router.post('/', async function(req, res) {
       {
         expiresIn: '1h',
       },
-      (err, encoded) => {
+      (err, token) => {
         if (err) {
           throw err;
         }
-        return res.status(200).json({ message: 'Token generated', encoded });
+        return res.status(200).json({ message: 'Token generated', token });
       },
     );
 

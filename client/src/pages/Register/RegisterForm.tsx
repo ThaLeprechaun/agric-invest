@@ -66,7 +66,6 @@ export default function RegisterForm() {
       password,
       userCategory,
     };
-    console.log(body);
     dispatch(registerUser(body));
     return;
   };
