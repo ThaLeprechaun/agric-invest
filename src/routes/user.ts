@@ -23,8 +23,9 @@ import {
 import {
   addInvestment,
   updateFarmByInvest,
-  getAllInvestments,
   getAnInvestment,
+  getInvestmentsByUser,
+  getFarmsInvestmentedByUser,
 } from '../controllers/investments';
 import { authUser, RequestType } from '../middleware/verifyUserToken';
 import authAdmin from '../middleware/verifyAdminToken';
@@ -233,7 +234,6 @@ router.patch('/:userId/farms/:farmId', authUser, async function(
   req: RequestType,
   res,
 ) {
-  // This route should have auth
   const { userId, farmId } = req.params;
   if (!userId || !farmId) {
     return res.status(400).json({ msg: 'Invalid url' });
@@ -335,7 +335,8 @@ router.get('/:userId/invests', authUser, async function(req, res) {
     return;
   }
   try {
-    const userInvestments = await getAllInvestments();
+    const userInvestments = await getInvestmentsByUser(userId);
+    // const investorFarms = await getAllFarmsByAUser(userId);
 
     if (!userInvestments) {
       return res
@@ -345,6 +346,34 @@ router.get('/:userId/invests', authUser, async function(req, res) {
     return res
       .status(200)
       .json({ msg: 'Investments successfully retrieved', userInvestments });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+    return;
+  }
+});
+
+// View all farms invested by a user(investor)
+router.get('/:userId/invests/farms', authUser, async function(
+  req: RequestType,
+  res,
+) {
+  const userId = req.params.userId;
+  if (!userId) {
+    return res.status(400).json({ msg: 'Invalid url' });
+  }
+
+  if (userId !== req.user!.id) {
+    res.status(401).json({ msg: 'Unauthorized' });
+    return;
+  }
+  try {
+    const userFarm = await getFarmsInvestmentedByUser(userId);
+    if (!userFarm) {
+      return res.status(400).json({ msg: 'Sorry, the farm is unavailable' });
+    }
+    return res
+      .status(200)
+      .json({ msg: 'Farm successfully retrieved', userFarm });
   } catch (error) {
     res.status(500).json({ error: error.message });
     return;

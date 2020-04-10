@@ -71,7 +71,8 @@ export function authUser(body: LoginType) {
     try {
       dispatch(authUserStart(true));
       const response = await axios.post('api/v1/auth', body, config);
-      dispatch(authUserSuccess(response.config.data));
+      dispatch(authUserSuccess(response.data));
+      dispatch(loadUser());
       dispatch(authUserEnd(false));
     } catch (err) {
       console.error(err);

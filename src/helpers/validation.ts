@@ -119,6 +119,7 @@ export function validateFarm(data: FarmDetails) {
     unitPrice: joi.required(),
     produceRate: joi.required(),
     unitsAvailable: joi.required(),
+    duration: joi.required(),
   });
 
   return schema.validate(data, {

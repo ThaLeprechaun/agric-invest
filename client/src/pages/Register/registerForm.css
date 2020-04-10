@@ -15,6 +15,19 @@ input {
 }
 .form__button {
   margin: 1rem;
+  background-color: #116e01;
+  border-radius: 3px;
+  width: 25rem;
+  padding: 10px 25px;
+  font-size: medium;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid #116e01;
+  position: relative;
+  z-index: 99;
+  text-transform: capitalize;
+  overflow: hidden;
+  cursor: pointer;
 }
 .select__menu {
   min-width: 25rem;
