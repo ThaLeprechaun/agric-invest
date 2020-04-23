@@ -106,17 +106,24 @@ export async function getInvestmentsByUser(userId: string) {
 export async function getFarmsInvestmentedByUser(userId: string) {
   try {
     const userInvestments = await Investments.find({ user: userId });
-    // const investorDetails = userInvestments.find((item: any)=>{
-    //   return item.user;
-    // });
-    // const investorId = investorDetails!.user;
-    // const investorFarm = await getAllFarmsByAUser(investorId);
-    // console.log(investorFarm);
+
     if (!userInvestments) {
       throw Error('Sorry, you do not have any investment');
     }
 
-    return userInvestments;
+    const farmId = userInvestments.map(farm => {
+      const data = farm.farm;
+      return data;
+    });
+
+    let farmDetails = await Promise.all(
+      farmId.map(async farm => {
+        const data = await getAFarm(farm);
+        return data;
+      }),
+    );
+
+    return farmDetails;
   } catch (error) {
     throw Error(error.message);
   }
