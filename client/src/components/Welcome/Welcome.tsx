@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import Modal from '../Modal/Modal';
 import FarmForm from '../Farms/FarmForm';
 import './welcome.css';
-import InvestmentForm from '../Investments/InvestmentForm';
+import Button from '../Button/Button';
+import { Link } from 'react-router-dom';
 
 export default function Welcome() {
   const selectedData = useSelector((state: any) => state);
@@ -20,9 +21,9 @@ export default function Welcome() {
               Welcome, {firstName} {lastName}!
             </div>
             <div>
-              <Modal buttonLabel="New Investment">
-                <InvestmentForm />
-              </Modal>
+              <Link to="/dashboard/all-farms">
+                <Button buttonName="New Investment" buttonClass="newButton" />
+              </Link>
             </div>
           </div>
         ) : (

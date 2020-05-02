@@ -1,67 +1,106 @@
+.farm-card__container {
+  width: 20rem;
+  margin: 2rem 1.5rem;
+}
+/* .product__container{
+  margin: 2rem;
+} */
+.farm-card__image {
+  position: relative;
+  /* background-color: red; */
+  border: 1px solid white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
 .product__details {
   text-transform: capitalize;
   text-align: center;
   font-size: 15px;
+  margin: 1rem;
 }
-.badge__close {
-  position: absolute;
-  right: 1px;
-  top: 50px;
-  background: red;
-  text-align: center;
-  border-radius: 30px;
-  color: white;
-  padding: 2px 8px;
-  font-size: 15px;
-}
-.badge__open {
-  position: absolute;
-  right: 1px;
-  top: 50px;
-  background: #049604;
-  text-align: center;
-  border-radius: 30px;
-  color: white;
-  padding: 2px 8px;
-  font-size: 15px;
-}
-.image__badge--holder {
-  position: relative;
-}
-.card-holder {
-  margin-top: 1rem;
+/* .card-holder {
   cursor: pointer;
-  border: none;
-  width: 100%;
-  height: 100%;
+  border-radius: 5px;
+  background-color: white;
+}
+.card-holder:hover{
+  transform: translateY(-15px);
+  background-color: rgba(24, 240, 89, 0.363);
+  transition: all 0.3s ease-in-out 0s;
 }
 .card-holder img:hover {
   background-color: white;
   opacity: 0.3;
-}
+} */
 .card__image {
-  margin: 4rem 1rem 1rem 1rem;
-  max-width: 100%;
+  /* margin: 4rem 1rem 1rem 1rem; */
+  border: 1px solid white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  width: 100%;
 }
 .text-header {
   color: black;
   text-align: center;
   text-transform: uppercase;
-  margin-top: 5rem;
+  margin-top: 2rem;
   position: relative;
   padding-bottom: 1px;
   font-weight: bold;
 }
-/* .heading.text-header:before{
-  right: 0;
-  left: 0;
-  margin: 0 auto;
+.farm-heading {
+  font-size: 25px;
+  font-weight: 400;
 }
-.heading::before{
-  content: "";
-  position: absolute;
-  background-color: #049604;
-  width: 50px;
-  height: 2px;
-  bottom: 0;
-} */
+.product__content--list {
+  /* background-color: pink; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.farm-invest__button {
+  margin: 1rem 1rem 1rem 1rem;
+  background-color: #116e01;
+  border-radius: 3px;
+  width: 25rem;
+  padding: 2px 5px;
+  font-size: normal;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid #116e01;
+  position: relative;
+  z-index: 99;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.farm-products {
+  /* background-color: yellow; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  /* overflow-x: hidden; */
+}
+.product__container {
+  /* background-color: #049604; */
+  width: 100%;
+}
+
+.invest-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.invest-form input {
+  border: 1px solid #116e01;
+  border-radius: 3px;
+  padding-left: 0.5rem;
+  min-width: 25rem;
+  height: 2.5rem;
+  margin: 1rem;
+}

@@ -11,7 +11,9 @@ export default function Hero() {
             <div className="heroImg__holder--headText">
               <h1>AgroInvest Farms</h1>
             </div>
-            <p className="heroImg__holder--bottomText">Invest in our farms</p>
+            <div className="heroImg__holder--bottomText">
+              Invest in our farms
+            </div>
           </div>
         </div>
       </div>

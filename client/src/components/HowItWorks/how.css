@@ -1,0 +1,41 @@
+.how-main__container {
+  background-color: rgba(21, 23, 26, 0.9);
+}
+.main-how {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.how-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.how-card__container {
+  margin-left: 20rem;
+  margin-top: 1rem;
+}
+.how-card {
+  width: 25rem;
+  min-height: 20vh;
+  margin: 2rem;
+}
+.how__name {
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: 1rem;
+}
+.how__details {
+  text-align: center;
+  margin-top: 1rem;
+}
+.text-header__how {
+  color: white;
+  /* margin-top: 2rem; */
+  text-transform: capitalize;
+  text-align: center;
+}
+.text-header__how h4 {
+  margin-top: 2rem;
+}

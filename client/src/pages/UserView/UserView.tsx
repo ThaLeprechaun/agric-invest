@@ -1,5 +1,4 @@
 import React from 'react';
-import Nav from '../../components/Nav/Nav';
 import './userview.css';
 import { useSelector } from 'react-redux';
 import SideNav from '../../components/SideNav/SideNav';
@@ -10,6 +9,7 @@ import { Switch, Route } from 'react-router-dom';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import Investments from '../../components/Investments/Investments';
 import Farms from '../../components/Farms/Farms';
+import ProductLists from '../../components/Products/ProductList';
 
 export default function UserView() {
   const selectedData = useSelector((state: any) => state);
@@ -32,6 +32,9 @@ export default function UserView() {
             </Route>
             <Route path="/dashboard/my-farms">
               <Farms />
+            </Route>
+            <Route path="/dashboard/all-farms">
+              <ProductLists />
             </Route>
           </Switch>
         </SuspenseBoundary>

@@ -32,7 +32,17 @@ export async function createFarm(userId: string, farmObj: FarmDetails) {
 }
 
 export async function getAllFarms() {
-  return await Farms.find({ deletedAt: null }).sort({ farmName: 'asc' });
+  try {
+    const allFarms = await Farms.find({ deletedAt: null }).sort({
+      farmName: 'asc',
+    });
+    if (!allFarms) {
+      throw Error('Unable to retrieve farms');
+    }
+    return allFarms;
+  } catch (error) {
+    throw Error(error.message);
+  }
 }
 
 export async function getAllFarmsByAUser(userId: string) {

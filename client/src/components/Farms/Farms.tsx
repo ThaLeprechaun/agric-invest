@@ -24,19 +24,20 @@ export default function Farms() {
             </tr>
           </thead>
           <tbody>
-            {farmDetails.map((farm: any, index: number) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{farm.farmName}</td>
-                <td>{farm.farmProduce}</td>
-                <td>{farm.unitPrice}</td>
-                <td>{farm.produceRate}</td>
-                <td>{farm.unitsAvailable}</td>
-                <td>{farm.farmLocation}</td>
-                <td>{farm.duration}</td>
-                <td>{farm.createdAt}</td>
-              </tr>
-            ))}
+            {farmDetails &&
+              farmDetails.map((farm: any, index: number) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{farm?.farmName}</td>
+                  <td>{farm?.farmProduce}</td>
+                  <td>{farm?.unitPrice}</td>
+                  <td>{farm?.produceRate}</td>
+                  <td>{farm?.unitsAvailable}</td>
+                  <td>{farm?.farmLocation}</td>
+                  <td>{farm?.duration}</td>
+                  <td>{farm?.createdAt}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </Card>
