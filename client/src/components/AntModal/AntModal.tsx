@@ -16,7 +16,7 @@ export default function AntModal({ buttonName, children }: ModalProp) {
   const [modalState, setModalState] = useState(initialState);
   const { loading, visible } = modalState;
   const selectedData = useSelector((state: any) => state);
-  const userId = selectedData.authUser!.user.user._id;
+  const userId = selectedData.authUser.user?.user._id;
 
   const showModal = () => {
     if (userId === undefined || userId == null) {

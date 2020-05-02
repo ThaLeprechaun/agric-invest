@@ -6,18 +6,13 @@ import './products.css';
 
 export default function ProductLists() {
   const selectedData = useSelector((state: any) => state);
-  const farms = selectedData.farm.farm!.doc;
+  const farms = selectedData.farm.farm?.doc;
   return (
-    <div className="container">
-      {console.log(farms)}
-      <div className="product__content--list">
-        <div className="row">
-          {farms &&
-            farms.map((product: any, index: number) => (
-              <ProductCard farmProduct={product} key={index} />
-            ))}
-        </div>
-      </div>
+    <div className="farm-products">
+      {farms &&
+        farms.map((product: any, index: number) => (
+          <ProductCard farmProduct={product} key={index} />
+        ))}
     </div>
   );
 }

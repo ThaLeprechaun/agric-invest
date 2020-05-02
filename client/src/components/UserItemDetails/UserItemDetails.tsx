@@ -1,18 +1,11 @@
 import React, { useEffect } from 'react';
 import Card from '../Card/Card';
 import './userItemDetail.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { getUserFarm } from '../../redux/actions/farmAction';
+import { useSelector } from 'react-redux';
 
 export default function UserItemDetails() {
   const selectedData = useSelector((state: any) => state);
-  const farmDetails = selectedData.farm.farm!.farm;
-  const investorFarm = selectedData.authUser.user.investment;
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    investorFarm.map((farm: any) => dispatch(getUserFarm(farm.farm)));
-  }, [dispatch, investorFarm]);
+  const farmDetails = selectedData.farm.farm?.doc;
 
   return (
     <div className="cardItemContainer">
@@ -24,24 +17,25 @@ export default function UserItemDetails() {
               <th>S/N</th>
               <th>Farm</th>
               <th>Farm Produce</th>
-              <th>Unit Price(N)</th>
+              <th>Unit Price(₦)</th>
               <th>Rate(%)</th>
               <th>Farm Location</th>
               <th>Farm Duartion</th>
             </tr>
           </thead>
           <tbody>
-            {investorFarm.map((farm: any, index: any) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{farmDetails.farmName}</td>
-                <td>{farmDetails.farmProduce}</td>
-                <td>{farmDetails.unitPrice}</td>
-                <td>{farmDetails.produceRate}</td>
-                <td>{farmDetails.farmLocation}</td>
-                <td>{farmDetails.duration}</td>
-              </tr>
-            ))}
+            {farmDetails &&
+              farmDetails.map((farm: any, index: any) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{farm?.farmName}</td>
+                  <td>{farm?.farmProduce}</td>
+                  <td>{farm?.unitPrice}</td>
+                  <td>{farm?.produceRate}</td>
+                  <td>{farm?.farmLocation}</td>
+                  <td>{farm?.duration}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </Card>

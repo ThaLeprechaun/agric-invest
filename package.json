@@ -30,7 +30,8 @@
 		"jsonwebtoken": "8.5.1",
 		"mongodb-memory-server": "6.3.2",
 		"mongoose": "5.9.3",
-		"morgan": "1.9.1"
+		"morgan": "1.9.1",
+		"prettier": "2.0.5"
 	},
 	"devDependencies": {
 		"@bahmutov/add-typescript-to-cypress": "2.1.2",
@@ -53,7 +54,6 @@
 		"husky": "3.0.3",
 		"jest": "24.9.0",
 		"nodemon": "2.0.2",
-		"prettier": "1.18.2",
 		"pretty-quick": "1.11.1",
 		"supertest": "4.0.2",
 		"ts-jest": "24.0.2",
