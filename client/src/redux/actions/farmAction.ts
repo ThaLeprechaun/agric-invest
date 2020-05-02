@@ -87,7 +87,8 @@ export function getUserFarm(farmId: AxiosResponse) {
     try {
       dispatch(getFarmStart(true));
       const response = await axios.get(`api/v1/farms/${farmId}`);
-      dispatch(getFarmSuccess(response.data));
+      console.log(response.data.farm.farmName);
+      dispatch(getFarmSuccess(response.data.farm.farmName));
       dispatch(getFarmEnd(false));
       return;
     } catch (error) {
