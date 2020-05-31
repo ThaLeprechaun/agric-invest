@@ -6,7 +6,6 @@ export interface UserSchema extends mongoose.Document {
   phone: string;
   email: string;
   password: string;
-  userCategory: string;
   isAdmin: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -48,10 +47,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       minlength: 6,
-    },
-    userCategory: {
-      type: String,
-      enum: ['farmer', 'investor'],
     },
     isAdmin: {
       type: Boolean,

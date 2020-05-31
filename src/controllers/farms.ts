@@ -1,5 +1,5 @@
 import Farms from '../models/farms';
-import { getAFarmer } from './users';
+import { getAFarmer } from './farmers';
 
 export interface FarmDetails {
   farmName: string;

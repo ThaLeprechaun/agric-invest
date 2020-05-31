@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import { Router } from 'express';
 
 import Users from '../models/users';
-import Farms from '../models/farms';
 import Investment from '../models/investments';
 import { logInUser } from '../helpers/validation';
 import { authUser } from '../middleware/verifyUserToken';
@@ -15,7 +14,7 @@ export interface LogInUser {
 const router = Router();
 
 //Authenticate user and get token
-router.post('/', async function(req, res) {
+router.post('/', async function (req, res) {
   const { error, value } = logInUser(req.body);
 
   if (error) {
@@ -73,25 +72,21 @@ router.post('/', async function(req, res) {
   }
 });
 
-router.get('/', authUser, async function(req: any, res) {
+router.get('/', authUser, async function (req: any, res) {
   try {
-    const [user, farm, investment] = await Promise.all([
+    const [user, investment] = await Promise.all([
       await Users.findById({
         _id: req.user.id,
         deletedAt: null,
       }).select('-password -__v -isAdmin '),
-      await Farms.find({
-        user: req.user.id,
-        deletedAt: null,
-      }),
       await Investment.find({
         user: req.user.id,
         deletedAt: null,
       }),
     ]);
 
-    if (user!.userCategory === 'farmer') {
-      return res.status(200).json({ user, farm });
+    if (!user || !investment) {
+      return res.status(400).json({ message: 'Unable to get user details' });
     }
 
     return res.status(200).json({ user, investment });
