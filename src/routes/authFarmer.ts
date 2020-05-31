@@ -2,8 +2,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { Router } from 'express';
 
-import Users from '../models/users';
-import Investment from '../models/investments';
+import Farmers from '../models/farmer';
+import Farms from '../models/farms';
 import { logInUser } from '../helpers/validation';
 import { authUser } from '../middleware/verifyUserToken';
 
@@ -23,14 +23,20 @@ router.post('/', async function (req, res) {
   }
 
   try {
-    let user = await Users.findOne({ email: value.email });
+    let farmer = await Farmers.findOne({ email: value.email });
 
-    if (!user) {
+    if (!farmer) {
       return res
         .status(400)
         .json({ message: 'Invalid credentials. Unable to get user email' });
     }
-    const isMatch = await bcrypt.compare(value.password, user.password);
+
+    if (!farmer) {
+      return res
+        .status(400)
+        .json({ message: 'Invalid credentials. Unable to get farmer email' });
+    }
+    const isMatch = await bcrypt.compare(value.password, farmer.password);
 
     if (!isMatch) {
       return res
@@ -40,8 +46,8 @@ router.post('/', async function (req, res) {
 
     const payload = {
       user: {
-        id: user._id,
-        isAdmin: user.isAdmin,
+        id: farmer.id,
+        isAdmin: farmer.isAdmin,
       },
     };
     const secret = process.env.JWT_SECRET;
@@ -74,22 +80,26 @@ router.post('/', async function (req, res) {
 
 router.get('/', authUser, async function (req: any, res) {
   try {
-    const [user, investment] = await Promise.all([
-      await Users.findById({
+    const [farmer, farm] = await Promise.all([
+      await Farmers.findById({
         _id: req.user.id,
         deletedAt: null,
       }).select('-password -__v -isAdmin '),
-      await Investment.find({
+      await Farms.find({
+        user: req.user.id,
+        deletedAt: null,
+      }),
+      await Farms.find({
         user: req.user.id,
         deletedAt: null,
       }),
     ]);
 
-    if (!user || !investment) {
-      return res.status(400).json({ message: 'Unable to get user details' });
+    if (!farmer || !farm) {
+      return res.status(400).json({ message: 'Unable to get user details.' });
     }
 
-    return res.status(200).json({ user, investment });
+    return res.status(200).json({ farmer, farm });
   } catch (error) {
     console.log(error.message);
     res.status(500).send('Server Error');

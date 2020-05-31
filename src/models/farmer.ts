@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 
-export interface UserSchema extends mongoose.Document {
+export interface FarmerSchema extends mongoose.Document {
   firstName: string;
   lastName: string;
   phone: string;
   email: string;
+  address: string;
   password: string;
   isAdmin: boolean;
   createdAt: Date;
@@ -12,7 +13,7 @@ export interface UserSchema extends mongoose.Document {
   deletedAt: Date | null;
 }
 
-const userSchema = new mongoose.Schema(
+const farmerSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -43,6 +44,12 @@ const userSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
+    address: {
+      type: String,
+      trim: true,
+      index: true,
+      required: true,
+    },
     password: {
       type: String,
       required: true,
@@ -62,4 +69,4 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-export default mongoose.model<UserSchema>('users', userSchema);
+export default mongoose.model<FarmerSchema>('farmers', farmerSchema);

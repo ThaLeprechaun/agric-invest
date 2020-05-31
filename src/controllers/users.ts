@@ -6,7 +6,6 @@ export interface UserDetails {
   phone: string;
   email: string;
   password: string;
-  userCategory: string;
 }
 
 export async function createAUser(userObj: UserDetails) {
@@ -61,28 +60,26 @@ export async function getAUser(userId: string) {
   }
 }
 
-export async function getAFarmer(userId: string) {
-  try {
-    const farmer = await Users.findOne({
-      _id: userId,
-      userCategory: 'farmer',
-      deletedAt: null,
-    });
+// export async function getAFarmer(userId: string) {
+//   try {
+//     const farmer = await Users.findOne({
+//       _id: userId,
+//       deletedAt: null,
+//     });
 
-    if (!farmer) {
-      throw Error('Sorry, user is not a farmer.');
-    }
-    return farmer;
-  } catch (error) {
-    throw Error(error.message);
-  }
-}
+//     if (!farmer) {
+//       throw Error('Sorry, user is not a farmer.');
+//     }
+//     return farmer;
+//   } catch (error) {
+//     throw Error(error.message);
+//   }
+// }
 
 export async function getAnInvestor(userId: string) {
   try {
     const investor = await Users.findOne({
       _id: userId,
-      userCategory: 'investor',
       deletedAt: null,
     });
 

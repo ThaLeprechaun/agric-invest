@@ -1,11 +1,7 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 
-import {
-  registerValidate,
-  updateUserValidate,
-  validateFarm,
-} from '../helpers/validation';
+import { registerValidate, updateUserValidate } from '../helpers/validation';
 import {
   createAUser,
   getAllUsers,
@@ -13,13 +9,6 @@ import {
   updateAUser,
   deleteAUser,
 } from '../controllers/users';
-import {
-  createFarm,
-  getAllFarmsByAUser,
-  updateFarm,
-  deleteFarm,
-  getAFarm,
-} from '../controllers/farms';
 import {
   addInvestment,
   updateFarmByInvest,
@@ -33,7 +22,7 @@ import authAdmin from '../middleware/verifyAdminToken';
 const router = Router();
 
 //Create a User
-router.post('/', async function(req, res) {
+router.post('/', async function (req, res) {
   const { error, value } = registerValidate(req.body);
 
   if (error) {
@@ -45,8 +34,8 @@ router.post('/', async function(req, res) {
     const salt = await bcrypt.genSalt(10);
     value.password = await bcrypt.hash(value.password, salt);
     const user = await createAUser(value);
-    const { firstName, lastName, phone, email, userCategory } = user;
-    const newUser = { firstName, lastName, phone, email, userCategory };
+    const { firstName, lastName, phone, email } = user;
+    const newUser = { firstName, lastName, phone, email };
 
     res.status(201).json({ msg: 'User created successfully', user: newUser });
     return;
@@ -57,7 +46,7 @@ router.post('/', async function(req, res) {
 });
 
 //Get all users
-router.get('/', authAdmin, async function(_req, res) {
+router.get('/', authAdmin, async function (_req, res) {
   try {
     const doc = await getAllUsers();
 
@@ -73,7 +62,7 @@ router.get('/', authAdmin, async function(_req, res) {
 });
 
 //Get a user
-router.get('/:userId', authUser, async function(req, res) {
+router.get('/:userId', authUser, async function (req, res) {
   const userId = req.params.userId;
 
   if (!userId) {
@@ -93,7 +82,7 @@ router.get('/:userId', authUser, async function(req, res) {
 });
 
 //Update user
-router.patch('/:userId', authUser, async function(req, res) {
+router.patch('/:userId', authUser, async function (req, res) {
   const userId = req.params.userId;
 
   const { error, value } = updateUserValidate(req.body);
@@ -117,7 +106,7 @@ router.patch('/:userId', authUser, async function(req, res) {
 });
 
 //delete a user
-router.delete('/:userId', authAdmin, async function(req, res) {
+router.delete('/:userId', authAdmin, async function (req, res) {
   const userId = req.params.userId;
 
   if (!userId) {
@@ -141,154 +130,8 @@ router.delete('/:userId', authAdmin, async function(req, res) {
   }
 });
 
-// Create a farm
-router.patch('/:userId/farms', authUser, async function(req: RequestType, res) {
-  const userId = req.params.userId;
-
-  if (userId !== req.user!.id) {
-    res.status(401).json({ msg: 'Unauthorized' });
-    return;
-  }
-  const { error, value } = validateFarm(req.body);
-
-  if (error) {
-    res.status(400).json({ msg: 'Please provide valid parameters', error });
-    return;
-  }
-  try {
-    const createdFarm = await createFarm(userId, value);
-    if (!createdFarm) {
-      return res.status(400).json({ msg: 'Unable to create farm' });
-    }
-    return res.status(200).json({
-      message: 'Farm successfully created',
-      createdFarm,
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-    return;
-  }
-});
-
-// View all farms owned by a user(farmer)
-router.get('/:userId/farms', authUser, async function(req: RequestType, res) {
-  const userId = req.params.userId;
-  if (!userId) {
-    res.status(400).json({ msg: 'Invalid url' });
-    return;
-  }
-
-  if (userId !== req.user!.id) {
-    res.status(401).json({ msg: 'Unauthorized' });
-    return;
-  }
-  try {
-    const userFarms = await getAllFarmsByAUser(userId);
-
-    if (!userFarms || userFarms.length < 1) {
-      return res
-        .status(400)
-        .json({ msg: 'Sorry, there are no farms to view here' });
-    }
-    return res
-      .status(200)
-      .json({ msg: 'Farms successfully retrieved', userFarms });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-    return;
-  }
-});
-
-// View a farm owned by a user(farmer)
-router.get('/:userId/farms/:farmId', authUser, async function(
-  req: RequestType,
-  res,
-) {
-  const userId = req.params.userId;
-  const farmId = req.params.farmId;
-  if (!userId || !farmId) {
-    return res.status(400).json({ msg: 'Invalid url' });
-  }
-
-  if (userId !== req.user!.id) {
-    res.status(401).json({ msg: 'Unauthorized' });
-    return;
-  }
-  try {
-    const userFarm = await getAFarm(farmId);
-
-    if (!userFarm) {
-      return res.status(400).json({ msg: 'Sorry, the farm is unavailable' });
-    }
-    return res
-      .status(200)
-      .json({ msg: 'Farm successfully retrieved', userFarm });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-    return;
-  }
-});
-
-//Edit farm details owned by a user(farmer)
-router.patch('/:userId/farms/:farmId', authUser, async function(
-  req: RequestType,
-  res,
-) {
-  const { userId, farmId } = req.params;
-  if (!userId || !farmId) {
-    return res.status(400).json({ msg: 'Invalid url' });
-  }
-
-  if (userId !== req.user!.id) {
-    res.status(401).json({ msg: 'Unauthorized' });
-    return;
-  }
-
-  const { error, value } = validateFarm(req.body);
-
-  if (error) {
-    res
-      .status(400)
-      .json({ msg: 'Please provide valid parameters to update farm', error });
-    return;
-  }
-  try {
-    const userFarm = await updateFarm(farmId, value);
-    return res.status(200).json({ msg: 'Farm successfully updated', userFarm });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-    return;
-  }
-});
-
-//Delete farm owned by a user(farmer)
-router.delete('/:userId/farms/:farmId', authUser, async function(
-  req: RequestType,
-  res,
-) {
-  const { userId, farmId } = req.params;
-
-  if (userId !== req.user!.id) {
-    res.status(401).json({ msg: 'Unauthorized' });
-    return;
-  }
-
-  if (!userId || !farmId) {
-    return res.status(400).json({ msg: 'Invalid url' });
-  }
-  try {
-    const deletedFarm = await deleteFarm(farmId);
-    return res
-      .status(200)
-      .json({ msg: 'Farm successfully deleted', deletedFarm });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-    return;
-  }
-});
-
 //Add investment(investor)
-router.patch('/:userId/farms/:farmId/invests', authUser, async function(
+router.patch('/:userId/farms/:farmId/invests', authUser, async function (
   req: RequestType,
   res,
 ) {
@@ -327,7 +170,7 @@ router.patch('/:userId/farms/:farmId/invests', authUser, async function(
 });
 
 //View all investments by a user(investor)
-router.get('/:userId/invests', authUser, async function(req, res) {
+router.get('/:userId/invests', authUser, async function (req, res) {
   const userId = req.params.userId;
 
   if (!userId) {
@@ -353,7 +196,7 @@ router.get('/:userId/invests', authUser, async function(req, res) {
 });
 
 // View all farms invested by a user(investor)
-router.get('/:userId/invests/farms', authUser, async function(
+router.get('/:userId/invests/farms', authUser, async function (
   req: RequestType,
   res,
 ) {
@@ -381,7 +224,7 @@ router.get('/:userId/invests/farms', authUser, async function(
 });
 
 //View an investment by a user(investor)
-router.get('/:userId/invests/:investId', authUser, async function(req, res) {
+router.get('/:userId/invests/:investId', authUser, async function (req, res) {
   const { userId, investId } = req.params;
 
   if (!userId || !investId) {

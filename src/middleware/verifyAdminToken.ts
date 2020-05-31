@@ -27,9 +27,8 @@ export default function authAdmin(
     const verified: any = jwt.verify(token, secret);
     req.user = verified.user;
 
-    if (!req.user!.isAdmin) {
+    if (req.user!.isAdmin === false) {
       res.status(401).json({ message: 'You do not have necessary privileges' });
-
       return;
     }
 

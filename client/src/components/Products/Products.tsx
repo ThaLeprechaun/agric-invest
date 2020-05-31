@@ -5,11 +5,15 @@ import './products.css';
 
 export default function Products() {
   return (
-    <div className="product__container">
-      <div className="heading text-header">
-        <h4>Our Farms</h4>
+    <div className="container">
+      <div className="row">
+        <div className="product__container">
+          <div className="heading text-header">
+            <h4>Our Farms</h4>
+          </div>
+          <ProductLists />
+        </div>
       </div>
-      <ProductLists />
     </div>
   );
 }

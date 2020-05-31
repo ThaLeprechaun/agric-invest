@@ -7,7 +7,9 @@ import path from 'path';
 
 import indexRouter from './routes/index';
 import authRouter from './routes/auth';
+import authFarmerRouter from './routes/authFarmer';
 import userRouter from './routes/user';
+import farmerRouter from './routes/farmer';
 import farmRouter from './routes/farms';
 import investRouter from './routes/investments';
 import schema from './schema';
@@ -29,7 +31,9 @@ app.use(cors());
 //Route middlewares
 app.use('/', indexRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/auth-farmer', authFarmerRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/farmers', farmerRouter);
 app.use('/api/v1/farms', farmRouter);
 app.use('/api/v1/investments', investRouter);
 
@@ -42,12 +46,12 @@ app.use(
 );
 
 // catch 404 and forward to error handler
-app.use(function(_req, _res, next) {
+app.use(function (_req, _res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(
+app.use(function (
   err: Error,
   req: express.Request,
   res: express.Response,
