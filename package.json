@@ -15,7 +15,7 @@
 		"client:start": "cd client; yarn start"
 	},
 	"dependencies": {
-		"@ant-design/icons": "4.0.6",
+		"@ant-design/icons": "4.2.1",
 		"@hapi/joi": "17.1.0",
 		"antd": "4.1.2",
 		"bcryptjs": "2.4.3",
