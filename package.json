@@ -43,7 +43,7 @@
 		"@types/graphql": "14.2.3",
 		"@types/hapi__joi": "16.0.12",
 		"@types/http-errors": "1.6.1",
-		"@types/jest": "24.0.17",
+		"@types/jest": "25.2.3",
 		"@types/jsonwebtoken": "8.3.8",
 		"@types/mongoose": "5.7.6",
 		"@types/morgan": "1.7.36",
